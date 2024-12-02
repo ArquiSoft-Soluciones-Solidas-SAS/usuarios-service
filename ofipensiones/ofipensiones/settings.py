@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import mongoengine
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-5q&aa5k%_y@vvdpq%bl^4z253!-v_&m&_48pv)r32-*w5sawrq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "usuariosService"
 ]
 
 MIDDLEWARE = [
@@ -73,16 +75,28 @@ WSGI_APPLICATION = "ofipensiones.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "usuario_service",
+#         "USER": "microservicios_user",
+#         "PASSWORD": "password",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+MONGODB_DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "usuario_service",
-        "USER": "microservicios_user",
-        "PASSWORD": "password",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+        "name": 'usuario_service',
+        "host": 'mongodb://microservicios_user:password@localhost:27017',
+        "tz_aware": True, # if you using timezones in django (USE_TZ = True)
+    },
 }
+
+mongoengine.connect(
+    db="usuario_service",
+    host="mongodb://microservicios_user:password@localhost:27017",
+    authentication_source="admin")
 
 
 # Password validation
