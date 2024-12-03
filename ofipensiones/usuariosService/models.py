@@ -8,6 +8,10 @@ class Usuario(Document):
     institucionId = fields.ObjectIdField(editable=False, required=True)
     nombreInstitucion = fields.StringField(max_length=100, required=True)
 
+    meta = {
+        'allow_inheritance': True
+    }
+
     def __str__(self):
         return self.nombreUsuario
 

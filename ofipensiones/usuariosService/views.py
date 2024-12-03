@@ -1,4 +1,5 @@
 from django.db.models.expressions import result
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -18,3 +19,4 @@ def get(request):
             "institucionId": usuario.institucionId,
             "nombreInstitucion": usuario.nombreInstitucion,
         })
+    return JsonResponse(resultado, safe=False)
