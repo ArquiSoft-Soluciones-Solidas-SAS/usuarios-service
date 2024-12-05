@@ -11,7 +11,7 @@ from usuariosService.models import Usuario
 def get_institution_from_user(request, user_id):
     # Verificar si el usuario está en la lista de usuarios válidos
     try:
-        user = Usuario.objects.get(pk=user_id)
+        user = Usuario.objects.get(nombreUsuario=user_id)
         institution = user.nombreInstitucion
         return JsonResponse({"institution": institution})
     except DoesNotExist:
